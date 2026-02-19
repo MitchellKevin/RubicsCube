@@ -1,0 +1,119 @@
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:#222;
+  color:white;
+  gap:10px;
+  font-family:sans-serif;
+}
+
+#scene{
+  width:300px;
+  height:300px;
+  perspective:1000px;
+}
+
+#cube{
+  position:relative;
+  width:0;
+  height:0;
+  transform-style:preserve-3d;
+  transform:rotateX(-30deg) rotateY(30deg);
+  transition:1s;
+}
+
+/* Camera */
+#camLeft:checked ~ #scene #cube{
+  transform:rotateX(-30deg) rotateY(-60deg);
+}
+
+#camRight:checked ~ #scene #cube{
+  transform:rotateX(-30deg) rotateY(120deg);
+}
+
+/* Cubies */
+#cube > div{
+  position:absolute;
+  width:60px;
+  height:60px;
+  transform-style:preserve-3d;
+}
+
+/* X position */
+#cube > div:nth-child(3n+1){ --x:-70px; }
+#cube > div:nth-child(3n+2){ --x:0px; }
+#cube > div:nth-child(3n){ --x:70px; }
+
+/* Y position */
+#cube > div:nth-child(n+1):nth-child(-n+9),
+#cube > div:nth-child(n+10):nth-child(-n+18),
+#cube > div:nth-child(n+19):nth-child(-n+27){
+  --y:-70px;
+}
+
+#cube > div:nth-child(n+4):nth-child(-n+12),
+#cube > div:nth-child(n+13):nth-child(-n+21){
+  --y:0px;
+}
+
+#cube > div:nth-child(n+7):nth-child(-n+15),
+#cube > div:nth-child(n+22):nth-child(-n+27){
+  --y:70px;
+}
+
+/* Z position */
+#cube > div:nth-child(-n+9){ --z:70px; }
+#cube > div:nth-child(n+10):nth-child(-n+18){ --z:0px; }
+#cube > div:nth-child(n+19){ --z:-70px; }
+
+#cube > div{
+  transform:translate3d(var(--x),var(--y),var(--z));
+}
+
+/* Faces */
+#cube > div > div{
+  position:absolute;
+  width:60px;
+  height:60px;
+  border:2px solid black;
+}
+
+/* Front */
+#cube > div > div:nth-child(1){
+  background:red;
+  transform:translateZ(30px);
+}
+
+/* Back */
+#cube > div > div:nth-child(2){
+  background:orange;
+  transform:rotateY(180deg) translateZ(30px);
+}
+
+/* Right */
+#cube > div > div:nth-child(3){
+  background:green;
+  transform:rotateY(90deg) translateZ(30px);
+}
+
+/* Left */
+#cube > div > div:nth-child(4){
+  background:blue;
+  transform:rotateY(-90deg) translateZ(30px);
+}
+
+/* Top */
+#cube > div > div:nth-child(5){
+  background:white;
+  transform:rotateX(90deg) translateZ(30px);
+}
+
+/* Bottom */
+#cube > div > div:nth-child(6){
+  background:yellow;
+  transform:rotateX(-90deg) translateZ(30px);
+}
