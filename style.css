@@ -7,6 +7,7 @@ body {
   display: flex;
   height: 100vh;
   justify-content: center;
+  font-size: 1.2em;
 }
 
 .boom{
@@ -75,9 +76,6 @@ body {
     z-index: 3;
 }
 
-.legs{
-}
-
 .legs .leg1, .leg2{
     clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
     background-color: red;
@@ -103,3 +101,54 @@ body {
     background-color: white;
     color: black;
 }
+
+
+#blue:checked ~ .boom .kop .eyes .eyeColor{
+    background-color: blue;
+}
+
+#green:checked ~ .boom .kop .eyes .eyeColor{
+    background-color: green;
+}
+
+#brown:checked ~ .boom .kop .eyes .eyeColor{
+    background-color: brown;
+}
+
+
+#red:checked ~ .boom .stam{
+    background-color: red;
+}
+
+#yellow:checked ~ .boom .stam{
+    background-color: yellow;
+}
+
+#grey:checked ~ .boom .stam{
+    background-color: grey;
+}
+
+#blue{
+    accent-color: blue;
+}
+
+#green{
+    accent-color: green;
+}
+#brown{
+    accent-color: brown;
+}
+#red{
+    accent-color: red;
+}
+#yellow{
+    accent-color: yellow;
+}
+#grey{
+    accent-color: grey;
+}
+
+p{
+    margin: 0 1em 0 2em;
+}
+
