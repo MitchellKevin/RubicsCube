@@ -107,9 +107,16 @@ body{
   transform:rotateX(-90deg) translateZ(30px);
 }
 
-#cube > div:nth-child(-n +3){
-  
+/* #cube > div > div:nth-child(-n +3){
+  transform: translate3d(var(--x),var(--y),var(--z));
+  animation: shuffle-bottom 6s ease-in-out both;
 }
+
+
+@keyframes shuffle-top {
+  0%,100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(0deg);}
+  100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(180deg); }
+} */
 
 @keyframes spinCube {
   from {
