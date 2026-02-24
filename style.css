@@ -1,119 +1,96 @@
-/* ===== RESET / SCENE ===== */
-body{
+body {
   margin:0;
   height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#222;
+  background:#000000;
 }
 
-#scene{
+#scene {
   width:300px;
   height:300px;
-  perspective:1000px;
-  overflow:visible;
+  perspective:1200px;
 }
 
-/* ===== CUBE ===== */
-#cube{
+#cube {
   position:relative;
   width:0;
   height:0;
   transform-style:preserve-3d;
-  animation: spinCube 8s linear infinite;
-  transform:rotateX(-30deg) rotateY(30deg);
+  transform: rotateX(-30deg) rotateY(30deg);
 }
 
-/* ===== CUBIES ===== */
-#cube > div{
+/* Cubies individueel */
+.cubie {
   position:absolute;
   width:60px;
   height:60px;
-  transform-style:preserve-3d;
-  transform:translate3d(var(--x),var(--y),var(--z));
+  transform-style: preserve-3d;
 }
 
-/* ===== X POSITIES (kolommen) ===== */
-#cube > div:nth-child(3n+1){ --x:-70px; }
-#cube > div:nth-child(3n+2){ --x:0px; }
-#cube > div:nth-child(3n){   --x:70px; }
-
-/* ===== Z POSITIES (lagen van 9) ===== */
-#cube > div:nth-child(-n+9){ --z:70px; }
-#cube > div:nth-child(n+10):nth-child(-n+18){ --z:0px; }
-#cube > div:nth-child(n+19):nth-child(-n+27){ --z:-70px; }
-
-/* ===== Y POSITIES (rijen binnen elke laag) ===== */
-#cube > div:nth-child(9n+1),
-#cube > div:nth-child(9n+2),
-#cube > div:nth-child(9n+3){
-  --y:-70px;
-}
-
-#cube > div:nth-child(9n+4),
-#cube > div:nth-child(9n+5),
-#cube > div:nth-child(9n+6){
-  --y:0px;
-}
-
-#cube > div:nth-child(9n+7),
-#cube > div:nth-child(9n+8),
-#cube > div:nth-child(9n+9){
-  --y:70px;
-}
-
-/* ===== FACES ===== */
-#cube > div > div{
+/* Faces */
+.cubie > div {
   position:absolute;
   width:60px;
   height:60px;
-  border:2px solid black;
+  border:2px solid #000;
   backface-visibility:hidden;
 }
 
-/* FRONT */
-#cube > div > div:nth-child(1){
-  background:red;
-  transform:translateZ(30px);
+/* Kleuren zoals echte Rubik’s Cube */
+.cubie > div:nth-child(1){ background:red; transform:translateZ(30px); }
+.cubie > div:nth-child(2){ background:orange; transform:rotateY(180deg) translateZ(30px); }
+.cubie > div:nth-child(3){ background:green; transform:rotateY(90deg) translateZ(30px); }
+.cubie > div:nth-child(4){ background:blue; transform:rotateY(-90deg) translateZ(30px); }
+.cubie > div:nth-child(5){ background:white; transform:rotateX(90deg) translateZ(30px); }
+.cubie > div:nth-child(6){ background:yellow; transform:rotateX(-90deg) translateZ(30px); }
+
+/* Posities cubies (x, y, z) */
+.cubie:nth-child(3n+1){ --x:-70px; }
+.cubie:nth-child(3n+2){ --x:0px; }
+.cubie:nth-child(3n){ --x:70px; }
+
+.cubie:nth-child(-n+9){ --z:70px; }
+.cubie:nth-child(n+10):nth-child(-n+18){ --z:0px; }
+.cubie:nth-child(n+19):nth-child(-n+27){ --z:-70px; }
+
+.cubie:nth-child(9n+1),
+.cubie:nth-child(9n+2),
+.cubie:nth-child(9n+3){ --y:-70px; }
+.cubie:nth-child(9n+4),
+.cubie:nth-child(9n+5),
+.cubie:nth-child(9n+6){ --y:0px; }
+.cubie:nth-child(9n+7),
+.cubie:nth-child(9n+8),
+.cubie:nth-child(9n+9){ --y:70px; }
+
+/* Shuffle animatie: top/middle/bottom lagen draaien als echte moves */
+.layer-top {
+  transform: translate3d(var(--x),var(--y),var(--z));
+  animation: shuffle-top 6s ease both;
+}
+.layer-middle {
+  transform: translate3d(var(--x),var(--y),var(--z));
+  animation: shuffle-middle 6s ease-in-out both;
+}
+.layer-bottom {
+  transform: translate3d(var(--x),var(--y),var(--z));
+  animation: shuffle-bottom 6s ease-in-out both;
 }
 
-/* BACK */
-#cube > div > div:nth-child(2){
-  background:orange;
-  transform:rotateY(180deg) translateZ(30px);
+/* Keyframes voor lagen */
+@keyframes shuffle-top {
+  0%,100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(0deg);}
+  100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(180deg); }
 }
 
-/* RIGHT */
-#cube > div > div:nth-child(3){
-  background:green;
-  transform:rotateY(90deg) translateZ(30px);
+@keyframes shuffle-middle {
+  0%,100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(0deg);}
+  100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(90deg); }
 }
 
-/* LEFT */
-#cube > div > div:nth-child(4){
-  background:blue;
-  transform:rotateY(-90deg) translateZ(30px);
-}
-
-/* TOP */
-#cube > div > div:nth-child(5){
-  background:white;
-  transform:rotateX(90deg) translateZ(30px);
-}
-
-/* BOTTOM */
-#cube > div > div:nth-child(6){
-  background:yellow;
-  transform:rotateX(-90deg) translateZ(30px);
-}
-
-
-@keyframes spinCube {
-  from {
-    transform: rotateX(-30deg) rotateY(0deg);
-  }
-  to {
-    transform: rotateX(-30deg) rotateY(360deg);
-  }
+@keyframes shuffle-bottom {
+  0%,100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(0deg);}
+  100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(180deg); }
 }
