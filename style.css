@@ -86,8 +86,8 @@ body {
 }
 
 @keyframes shuffle-middle {
-  0%,100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(0deg);}
-  100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateX(90deg); }
+  0%,100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateY(0deg);}
+  100% { transform: translate3d(var(--x),var(--y),var(--z)) rotateY(180deg) rotateX(0); }
 }
 
 @keyframes shuffle-bottom {
