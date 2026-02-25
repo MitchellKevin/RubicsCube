@@ -1,69 +1,56 @@
-/* ===== RESET / SCENE ===== */
-body{
+body {
   margin:0;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  font-family:sans-serif;
   background:#222;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-#scene{
-  width:300px;
-  height:300px;
-  perspective:1000px;
-  overflow:visible;
+h2 { margin-top:10px; }
+
+#scene {
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  position: relative;
 }
 
-/* ===== CUBE ===== */
-#cube{
-  position:relative;
-  width:0;
-  height:0;
-  transform-style:preserve-3d;
-  transform:rotateX(-30deg) rotateY(30deg);
+#cube {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg) rotateY(30deg);
+  /* Centreer het 0-punt van de cube */
+  left: 0; top: 0;
 }
 
-/* ===== CUBIES ===== */
-#cube > div{
+#controls {
+  margin-top: 50px; /* afstand onder de cube */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+#controls button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cubie{
   position:absolute;
   width:60px;
   height:60px;
   transform-style:preserve-3d;
-  transform:translate3d(var(--x),var(--y),var(--z));
+  transition: transform 0.5s;
 }
 
-/* ===== X POSITIES (kolommen) ===== */
-#cube > div:nth-child(3n+1){ --x:-70px; }
-#cube > div:nth-child(3n+2){ --x:0px; }
-#cube > div:nth-child(3n){   --x:70px; }
-
-/* ===== Z POSITIES (lagen van 9) ===== */
-#cube > div:nth-child(-n+9){ --z:70px; }   /* bovenste laag */
-#cube > div:nth-child(n+10):nth-child(-n+18){ --z:0px; }  /* middelste laag */
-#cube > div:nth-child(n+19):nth-child(-n+27){ --z:-70px; } /* onderste laag */
-
-/* ===== Y POSITIES (rijen binnen elke laag) ===== */
-#cube > div:nth-child(9n+1),
-#cube > div:nth-child(9n+2),
-#cube > div:nth-child(9n+3){
-  --y:-70px;
-}
-
-#cube > div:nth-child(9n+4),
-#cube > div:nth-child(9n+5),
-#cube > div:nth-child(9n+6){
-  --y:0px;
-}
-
-#cube > div:nth-child(9n+7),
-#cube > div:nth-child(9n+8),
-#cube > div:nth-child(9n+9){
-  --y:70px;
-}
-
-/* ===== FACES ===== */
-#cube > div > div{
+.face{
   position:absolute;
   width:60px;
   height:60px;
@@ -71,95 +58,10 @@ body{
   backface-visibility:hidden;
 }
 
-/* FRONT */
-#cube > div > div:nth-child(1){
-  background:red;
-  transform:translateZ(30px);
-}
-
-/* BACK */
-#cube > div > div:nth-child(2){
-  background:orange;
-  transform:rotateY(180deg) translateZ(30px);
-}
-
-/* RIGHT */
-#cube > div > div:nth-child(3){
-  background:green;
-  transform:rotateY(90deg) translateZ(30px);
-}
-
-/* LEFT */
-#cube > div > div:nth-child(4){
-  background:blue;
-  transform:rotateY(-90deg) translateZ(30px);
-}
-
-/* TOP */
-#cube > div > div:nth-child(5){
-  background:white;
-  transform:rotateX(90deg) translateZ(30px);
-}
-
-/* BOTTOM */
-#cube > div > div:nth-child(6){
-  background:yellow;
-  transform:rotateX(-90deg) translateZ(30px);
-}
-
-/* ===== ANIMATIE BOVENSTE LAAG ===== */
-
-@keyframes rotateTopLayer {
-  from {
-    transform: translate3d(var(--x), var(--y), var(--z)) rotateZ(0deg);
-  }
-  to {
-    transform: translate3d(var(--x), var(--y), var(--z)) rotateZ(180deg);
-  }
-}
-
-@keyframes rotateBottomLayer {
-  from {
-    transform: translate3d(var(--x), var(--y), var(--z)) rotateZ(0deg);
-  }
-  to {
-    transform: translate3d(var(--x), var(--y), var(--z)) rotateZ(-90deg);
-  }
-}
-
-@keyframes rotateColumn {
-  from {
-    transform: translate3d(var(--x), var(--y), var(--z)) rotateY(0deg);
-  }
-  to {
-    transform: translate3d(var(--x), var(--y), var(--z)) rotateY(90deg);
-  }
-}
-
-
-#cube > div:nth-child(-n+9) {
-  animation: rotateTopLayer 2s forwards;
-}
-
-#cube > div:nth-child(1),
-#cube > div:nth-child(2),
-#cube > div:nth-child(3),
-#cube > div:nth-child(10),
-#cube > div:nth-child(11),
-#cube > div:nth-child(12),
-#cube > div:nth-child(19),
-#cube > div:nth-child(20),
-#cube > div:nth-child(21) {
-  animation: rotateColumn 2s 2s forwards;
-}
-
-#cube > div:nth-child(n+18) {
-  animation: rotateBottomLayer 2s 4s forwards;
-}
-
-
-/* ===== ANIMATIE HELE CUBE ===== */
-@keyframes spinCube {
-  from { transform: rotateX(-30deg) rotateY(0deg); }
-  to   { transform: rotateX(-30deg) rotateY(360deg); }
-}
+/* kleuren */
+.face.front{ background:orange; transform:translateZ(30px);}
+.face.back{ background:red; transform:rotateY(180deg) translateZ(30px);}
+.face.right{ background:green; transform:rotateY(90deg) translateZ(30px);}
+.face.left{ background:blue; transform:rotateY(-90deg) translateZ(30px);}
+.face.top{ background:white; transform:rotateX(90deg) translateZ(30px);}
+.face.bottom{ background:yellow; transform:rotateX(-90deg) translateZ(30px);}
