@@ -1,0 +1,64 @@
+/* ===== GLOBAL STATE ===== */
+body {
+  transition: background 1s ease;
+}
+
+body.unsolved {
+  background: radial-gradient(circle at center, #2a2a2a, #111);
+}
+
+body.solved {
+  background: radial-gradient(circle at center, #1e3c72, #2a5298);
+}
+
+/* ===== CUBE STATES ===== */
+#cube {
+  transition: transform 0.6s ease;
+}
+
+/* ===== UNSOLVED ===== */
+#cube:not(.solved) .cubie {
+  animation: floaty 3s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+/* ===== SOLVED ===== */
+#cube.solved {
+  animation: snapIn 0.4s ease-out;
+}
+
+#cube.solved .cubie {
+  box-shadow:
+    0 0 30px rgba(255,255,255,0.15),
+    inset 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* ===== EXPLODE EFFECT ===== */
+#cube.exploding .cubie {
+  animation: explode 0.35s ease-out;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes floaty {
+  0%,100% { transform: translateZ(0); }
+  50% { transform: translateZ(4px); }
+}
+
+@keyframes snapIn {
+  0%   { transform: scale(0.95); }
+  60%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes explode {
+  to {
+    transform:
+      translate3d(
+        calc(var(--dx) * 1.5),
+        calc(var(--dy) * 1.5),
+        calc(var(--dz) * 1.5)
+      )
+      rotateX(360deg)
+      rotateY(360deg);
+  }
+}

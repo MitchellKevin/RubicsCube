@@ -1,154 +1,112 @@
-html{
-     color-scheme: light dark;
-}
-
 body {
-  align-items: center;
-  display: flex;
-  height: 100vh;
+  margin:0;
+  font-family:sans-serif;
+  background:#222;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
   justify-content: center;
-  font-size: 1.2em;
+  height: 100vh;
 }
 
-.boom{
-    width: 300px;
-    height: 800px;
-    display: flex;
-    justify-content: end;
-    flex-direction: column-reverse;
-    align-items: center;
+h2 { margin-top:10px; }
+
+#title {
+  position: absolute;
+  color: rgba(255,255,255,0.1);
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  font-size: 15em;
+  width: 100vw;
+  text-align: center;
 }
 
-.stam{
-    width: 8em;
-    height: 13em;
-    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
-    background-color: rgb(125, 125, 125);
+#scene {
+  width: min(90vw, 90vh);
+  height: min(90vw, 90vh);
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
-.kop{
-    width: 13em;
-    height: 13em;
-    clip-path: circle(50% at 50% 50%);
-    background-color: rgb(255, 195, 160);
-    margin-bottom: -3em;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-}
+#cube {
+  position: absolute;
+  transform-style: preserve-3d;
 
-.eyes{
-    align-items: center;
-    flex-direction: column;
-    flex-direction: row;
-    justify-content: space-evenly;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    background-color: transparent;
-    margin-bottom: -4em;
-}
-.eyes .eye1, .eye2{
-    width: 3em;
-    height: 4em;
-    background-color: rgb(225, 225, 225);
-    clip-path: ellipse(42% 15% at 51% 53%);
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+  /* centreer het nulpunt */
+  left: 48%;
+  top: 50%;
+  
 
-.eyeColor{
-    background-color: green;
-    width: 1em;
-    height: 1em;
-    border-radius: 50%;
-}
-
-.nose{
-    margin-top: 1em;
-    background-color: rgb(255, 35, 35);
-    clip-path: ellipse(42% 15% at 51% 53%);
-    width: 2em;
-    height: 5em;
-    z-index: 3;
-}
-
-.legs .leg1, .leg2{
-    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
-    background-color: red;
-    width: 5em;
-    height: 7em;
-    z-index: 3;
-}
-
-#textCloud:checked .TextWolk{
-    opacity: 0;
+  transform:
+    rotateX(-24deg)
+    rotateY(-45deg);
 
 }
-
-.textWolk{
-    width: 10em;
-    height: 10em;
+#controls {
+  margin-top: 10px; /* afstand onder de cube */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
 }
-.wolk{
-    align-items: center;
-    width: 15em;
-    height: 10em;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
-    background-color: white;
-    color: black;
-}
-
-
-#blue:checked ~ .boom .kop .eyes .eyeColor{
-    background-color: blue;
+#controls button {
+  padding: 16px 24px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(49, 49, 49);
 }
 
-#green:checked ~ .boom .kop .eyes .eyeColor{
-    background-color: green;
+.cubie{
+  position:absolute;
+  width:90px;
+  height:90px;
+  transform-style:preserve-3d;
+  transition: transform 0.5s;
 }
 
-#brown:checked ~ .boom .kop .eyes .eyeColor{
-    background-color: brown;
+.face{
+  position:absolute;
+  width:90px;
+  height:90px;
+  border:2px solid black;
+  backface-visibility:hidden;
 }
 
+/* kleuren */
+.face.front{ background:orange; transform:translateZ(45px);}
+.face.back{ background:red; transform:rotateY(180deg) translateZ(45px);}
+.face.right{ background:green; transform:rotateY(90deg) translateZ(45px);}
+.face.left{ background:blue; transform:rotateY(-90deg) translateZ(45px);}
+.face.top{ background:white; transform:rotateX(90deg) translateZ(45px);}
+.face.bottom{ background:yellow; transform:rotateX(-90deg) translateZ(45px);}
 
-#red:checked ~ .boom .stam{
-    background-color: red;
-}
-
-#yellow:checked ~ .boom .stam{
-    background-color: yellow;
-}
-
-#grey:checked ~ .boom .stam{
-    background-color: grey;
-}
-
-#blue{
-    accent-color: blue;
+@keyframes floaty {
+  0%,100% { transform: translateZ(0); }
+  50% { transform: translateZ(4px); }
 }
 
-#green{
-    accent-color: green;
-}
-#brown{
-    accent-color: brown;
-}
-#red{
-    accent-color: red;
-}
-#yellow{
-    accent-color: yellow;
-}
-#grey{
-    accent-color: grey;
+@keyframes snapIn {
+  0%   { transform: scale(0.95); }
+  60%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
-p{
-    margin: 0 1em 0 2em;
+@keyframes explode {
+  to {
+    transform:
+      translate3d(
+        calc(var(--dx) * 1.5),
+        calc(var(--dy) * 1.5),
+        calc(var(--dz) * 1.5)
+      )
+      rotateX(360deg)
+      rotateY(360deg);
+  }
 }
-

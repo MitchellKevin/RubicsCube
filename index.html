@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Cubinator</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>Eye Color</p>
-    <input type="radio" name="eyes" id="blue">
-    <label for="blue">Blue</label>
-     <input type="radio" name="eyes" id="green">
-    <label for="green">Green</label>
-     <input type="radio" name="eyes" id="brown">
-    <label for="brown">Brown</label>
-    <p>Shirt Color</p>
-        <input type="radio" name="shirt" id="red">
-    <label for="red">Red</label>
-     <input type="radio" name="shirt" id="yellow">
-    <label for="yellow">Yellow</label>
-     <input type="radio" name="shirt" id="grey">
-    <label for="grey">Grey</label>
-    <label class="boom">
-        <span class="stam"></span>
-        <section class="kop">
-            <div class="eyes">
-                <span class="eye1"><span class="eyeColor"></span></span>
-                <span class="eye2"><span class="eyeColor"></span></span>
-            </div>
-            <span class="nose"></span>
-            <span class="mouth"></span>
-        </section>
-    </label>
-  
-</button>
+<h1 id="title">RUBIK’S CUBE</h1>
+<div id="scene">
+  <div id="cube">
+    <!-- 27 cubies -->
+    <!-- elke cubie heeft 6 faces -->
+    <!-- we maken dit in JS zodat we array en orientatie makkelijk bijhouden -->
+  </div>
+</div>
+
+
+<div id="controls">
+  <button onclick="rotateLayer('z',0,true)">U</button>
+  <button onclick="rotateLayer('z',0,false)">U'</button>
+  <button onclick="rotateLayer('z',2,true)">D</button>
+  <button onclick="rotateLayer('z',2,false)">D'</button>
+  <button onclick="rotateLayer('x',0,true)">L</button>
+  <button onclick="rotateLayer('x',0,false)">L'</button>
+  <button onclick="rotateLayer('x',2,true)">R</button>
+  <button onclick="rotateLayer('x',2,false)">R'</button>
+  <button onclick="rotateLayer('y',0,true)">F</button>
+  <button onclick="rotateLayer('y',0,false)">F'</button>
+  <button onclick="rotateLayer('y',2,true)">B</button>
+  <button onclick="rotateLayer('y',2,false)">B'</button>
+    <button id="shuffle">Shuffle</button>
+  <button id="solve">Solve</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
