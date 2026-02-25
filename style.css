@@ -6,62 +6,107 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content: center;
+  height: 100vh;
 }
 
 h2 { margin-top:10px; }
 
+#title {
+  position: absolute;
+  color: rgba(255,255,255,0.1);
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  font-size: 15em;
+  width: 100vw;
+  text-align: center;
+}
+
 #scene {
-  width: 300px;
-  height: 300px;
-  perspective: 1000px;
+  width: min(90vw, 90vh);
+  height: min(90vw, 90vh);
+  perspective: 1200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
-  position: relative;
+  z-index: 1;
 }
 
 #cube {
-  position: relative;
+  position: absolute;
   transform-style: preserve-3d;
-  transform: rotateX(-30deg) rotateY(30deg);
-  /* Centreer het 0-punt van de cube */
-  left: 0; top: 0;
-}
 
+  /* centreer het nulpunt */
+  left: 48%;
+  top: 50%;
+  
+
+  transform:
+    rotateX(-24deg)
+    rotateY(-45deg);
+
+}
 #controls {
-  margin-top: 50px; /* afstand onder de cube */
+  margin-top: 10px; /* afstand onder de cube */
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
 }
 #controls button {
-  padding: 8px 12px;
+  padding: 16px 24px;
   font-size: 14px;
   cursor: pointer;
+  color: white;
+  background-color: rgb(49, 49, 49);
 }
 
 .cubie{
   position:absolute;
-  width:60px;
-  height:60px;
+  width:90px;
+  height:90px;
   transform-style:preserve-3d;
   transition: transform 0.5s;
 }
 
 .face{
   position:absolute;
-  width:60px;
-  height:60px;
+  width:90px;
+  height:90px;
   border:2px solid black;
   backface-visibility:hidden;
 }
 
 /* kleuren */
-.face.front{ background:orange; transform:translateZ(30px);}
-.face.back{ background:red; transform:rotateY(180deg) translateZ(30px);}
-.face.right{ background:green; transform:rotateY(90deg) translateZ(30px);}
-.face.left{ background:blue; transform:rotateY(-90deg) translateZ(30px);}
-.face.top{ background:white; transform:rotateX(90deg) translateZ(30px);}
-.face.bottom{ background:yellow; transform:rotateX(-90deg) translateZ(30px);}
+.face.front{ background:orange; transform:translateZ(45px);}
+.face.back{ background:red; transform:rotateY(180deg) translateZ(45px);}
+.face.right{ background:green; transform:rotateY(90deg) translateZ(45px);}
+.face.left{ background:blue; transform:rotateY(-90deg) translateZ(45px);}
+.face.top{ background:white; transform:rotateX(90deg) translateZ(45px);}
+.face.bottom{ background:yellow; transform:rotateX(-90deg) translateZ(45px);}
+
+@keyframes floaty {
+  0%,100% { transform: translateZ(0); }
+  50% { transform: translateZ(4px); }
+}
+
+@keyframes snapIn {
+  0%   { transform: scale(0.95); }
+  60%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes explode {
+  to {
+    transform:
+      translate3d(
+        calc(var(--dx) * 1.5),
+        calc(var(--dy) * 1.5),
+        calc(var(--dz) * 1.5)
+      )
+      rotateX(360deg)
+      rotateY(360deg);
+  }
+}

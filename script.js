@@ -36,7 +36,7 @@ for(let z=0; z<3; z++){
 
 // Update cubie positie en kleuren
 function updateCubie(c){
-  const spacing = 70;
+  const spacing = 100;
   const x = (c.x-1)*spacing;
   const y = (c.y-1)*spacing;
   const z = (1-c.z)*spacing;
@@ -114,6 +114,7 @@ function rotateLayer(axis, index, clockwise=true){
 function move(axis, layer, clockwise){
   rotateLayer(axis,layer,clockwise);
   moves.push({axis,layer,clockwise});
+  updateSolvedState();
 }
 
 // Shuffle 1 move per keer
